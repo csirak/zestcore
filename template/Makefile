@@ -1,5 +1,7 @@
 MODULE=NAME
 
+SOURCES = $(MODULE).sv 
+
 .PHONY:sim
 sim: waveform.vcd
 
@@ -7,7 +9,7 @@ sim: waveform.vcd
 verilate: .stamp.verilate
 
 .PHONY:build
-build: obj_dir/VNAME
+build: obj_dir/Valudec
 
 .PHONY:waves waveform.vcd
 waves: waveform.vcd
@@ -25,15 +27,15 @@ waveform.vcd: ./obj_dir/V$(MODULE)
 	@echo "### BUILDING SIM ###"
 	make -C obj_dir -f V$(MODULE).mk V$(MODULE)
 
-.stamp.verilate: $(MODULE).sv tb.cpp
+.stamp.verilate: $(SOURCES) tb.cpp
 	@echo
 	@echo "### VERILATING ###"
-	@verilator  -Wall --trace --x-assign unique --x-initial unique -cc $(MODULE).sv --exe tb.cpp
+	@verilator  -Wall --trace --x-assign unique --x-initial unique -cc $(SOURCES) --exe tb.cpp --top-module $(MODULE)
 	@touch .stamp.verilate
 
 .PHONY:lint
-lint: $(MODULE).sv
-	verilator --lint-only $(MODULE).sv
+lint: $(SOURCES)
+	verilator --lint-only $(SOURCES)
 
 .PHONY: clean
 clean:
