@@ -1,5 +1,5 @@
 #include "Valu.h"
-#include "Valu___024unit.h"
+#include "Valu_alu_pkg.h"
 #include <cassert>
 #include <cstdint>
 #include <cstdio>
@@ -17,13 +17,13 @@ vluint64_t posedge_cnt = 0;
 typedef struct {
   uint32_t a;
   uint32_t b;
-  Valu___024unit::alu_op_e op;
+  Valu_alu_pkg::alu_op_e op;
 } alutx_t;
 
 void rand_alutx(alutx_t &alutx) {
   alutx.a = rand();
   alutx.b = rand();
-  alutx.op = (Valu___024unit::alu_op_e)(rand() % 8);
+  alutx.op = (Valu_alu_pkg::alu_op_e)(rand() % 8);
 }
 
 void drive_alutx(Valu *dut, alutx_t &alutx) {
@@ -35,15 +35,15 @@ void drive_alutx(Valu *dut, alutx_t &alutx) {
 bool valid_alutx(alutx_t &alutx, uint32_t y) {
   // printf("ALU op: %d, a: %u, b: %u, y: %u\n", alutx.op, alutx.a, alutx.b, y);
   switch (alutx.op) {
-  case Valu___024unit::ADD:
+  case Valu_alu_pkg::ADD:
     return y == alutx.a + alutx.b;
-  case Valu___024unit::SUB:
+  case Valu_alu_pkg::SUB:
     return y == alutx.a - alutx.b;
-  case Valu___024unit::AND:
+  case Valu_alu_pkg::AND:
     return y == (alutx.a & alutx.b);
-  case Valu___024unit::OR:
+  case Valu_alu_pkg::OR:
     return y == (alutx.a | alutx.b);
-  case Valu___024unit::SLT:
+  case Valu_alu_pkg::SLT:
     return y == (alutx.a < alutx.b);
   default:
     return y == 0;
