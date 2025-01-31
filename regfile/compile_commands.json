@@ -1,0 +1,7 @@
+[
+    {
+        "directory": "/Users/calebsirak/zestcore/regfile",
+        "command": "g++ -std=c++17 -I/opt/homebrew/share/verilator/include -I/opt/homebrew/share/verilator/include/vltstd -I./obj_dir -I. tb.cpp -c -o tb.o",
+        "file": "tb.cpp"
+    }
+]

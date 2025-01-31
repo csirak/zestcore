@@ -1,7 +1,7 @@
 #include "VNAME.h"
 #include <cassert>
 #include <cstdlib>
-#include <iostream>
+#include <stdio.h>
 #include <stdlib.h>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
